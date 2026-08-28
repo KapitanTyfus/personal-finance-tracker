@@ -1,0 +1,8 @@
+print("=== PERSONAL FINANCE TRACKER ===")
+print()
+print("1. Add expense")
+print("2. Show expenses")
+print("3. Show total")
+print("4. Exit")
+print()
+input("Choose an option:\n")
