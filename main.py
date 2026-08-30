@@ -1,4 +1,12 @@
-expenses = []
+import json
+
+# --- wczytanie danych na starcie ---
+try:
+    with open("expenses.json", "r") as file:
+        expenses = json.load(file)
+except:
+    expenses = []          # jeśli plik nie istnieje, zaczynamy od pustej listy
+
 
 while True:
     print("=== PERSONAL FINANCE TRACKER ===")
@@ -10,8 +18,17 @@ while True:
     choice = input("Choose an option: ")
 
     if choice == "1":
-        amount = float(input("Enter expense: "))
-        expenses.append(amount)
+        name = input("What did you buy? ")
+        amount = float(input("How much did it cost? "))
+        category = input("Category: ")
+
+        expense = {
+            "name": name,
+            "amount": amount,
+            "category": category
+        }
+
+        expenses.append(expense)
         print("Added!")
 
     elif choice == "2":
@@ -20,10 +37,15 @@ while True:
             print(e)
 
     elif choice == "3":
-        total = sum(expenses)
+        total = 0
+        for e in expenses:
+            total += e["amount"]
         print("Total:", total)
 
     elif choice == "4":
+        # --- zapisanie danych przed wyjściem ---
+        with open("expenses.json", "w") as file:
+            json.dump(expenses, file)
         print("Bye!")
         break
 
